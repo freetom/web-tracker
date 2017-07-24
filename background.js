@@ -64,4 +64,9 @@ chrome.webRequest.onBeforeRequest.addListener(
   {urls: ["<all_urls>"]},
   ["requestBody"]
 )
+chrome.webRequest.onBeforeSendHeaders.addListener(
+  recordRequest,
+  {urls: ["<all_urls>"]},
+  ["requestHeaders"]
+)
 chrome.runtime.onMessage.addListener(messageHandler)
