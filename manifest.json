@@ -16,8 +16,6 @@
     "tabs",
     "webRequest",
     "<all_urls>",
-    "cookies",
-    "storage",
     "downloads"
   ],
 
