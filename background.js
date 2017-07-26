@@ -1,15 +1,20 @@
 recording=false
 site=''
 requests=[]
+headers=[]
 
 function download(){
   var result = JSON.stringify(requests);
-
-  // Save as file
   var url = 'data:application/json;base64,' + btoa(result);
   chrome.downloads.download({
       url: url,
-      filename: 'web-trace.json'
+      filename: 'web-requests.json'
+  });
+  result = JSON.stringify(headers);
+  url = 'data:application/json;base64,' + btoa(result);
+  chrome.downloads.download({
+      url: url,
+      filename: 'web-headers.json'
   });
   requests=[]
 }
@@ -59,13 +64,22 @@ function recordRequest(requestDetails) {
   }
 }
 
+function recordHeaders(requestDetails) {
+  if(!recording)
+    return
+  url=requestDetails.url
+  if(checkName(url)){
+    headers.push(requestDetails)
+  }
+}
+
 chrome.webRequest.onBeforeRequest.addListener(
   recordRequest,
   {urls: ["<all_urls>"]},
   ["requestBody"]
 )
 chrome.webRequest.onBeforeSendHeaders.addListener(
-  recordRequest,
+  recordHeaders,
   {urls: ["<all_urls>"]},
   ["requestHeaders"]
 )
