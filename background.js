@@ -17,6 +17,7 @@ function download(){
       filename: 'web-headers.json'
   });
   requests=[]
+  headers=[]
 }
 
 function messageHandler(msg, sender, sendResponse ){

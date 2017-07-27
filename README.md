@@ -22,3 +22,7 @@ Does not work of Firefox 55, `chrome.downloads.download`, does not work, don't k
 `git clone https://github.com/freetom/web-tracker/`
 
 Open chrome and go on `chrome://extensions`, tick "developer mode", click "load unpacked extension", give him the folder of the just downloaded `web-tracker`. Done
+
+## Possible improvements
+
+The add-on currenty supports dumping of request headers and request parameters. It might be interesting to add the recording of the responses too. 
