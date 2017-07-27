@@ -3,7 +3,7 @@ Web extensions that allows to record the requests sent specific domains
 
 ## Purpose
 
-This extension can track all the requests that you do when you are browsing a certain domain, and all its sub-domains and it allows you to export them in JSON format.
+This extension tracks all the requests you do to a domain and all of its sub-domains on command. Once terminated, the trace will be downloaded in two JSON files that contains respectively requests and headers.
 
 Web traces can then be used for the most disparate purposes. I.e. mutative testing of websites based on valid web traces.
 
@@ -16,3 +16,9 @@ Click the button on toolbar to interact with the extension. You can use the butt
 Works on Google Chrome 59.
 
 Does not work of Firefox 55, `chrome.downloads.download`, does not work, don't know why
+
+## Install
+
+`git clone https://github.com/freetom/web-tracker/`
+
+Open chrome and go on `chrome://extensions`, tick "developer mode", click "load unpacked extension", give him the folder of the just downloaded `web-tracker`. Done
