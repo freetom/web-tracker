@@ -1,9 +1,9 @@
 # web-tracker
-Web extensions that allows to record the requests sent specific domains
+Web extensions that allows to record the requests sent to specific domains
 
 ## Purpose
 
-This extension tracks all the requests you do to a domain and all of its sub-domains on command. Once terminated, the trace will be downloaded in two JSON files that contains respectively requests and headers.
+This extension tracks all the requests you do to a domain and all of its subdomains once the recording function is activated. When terminated, the trace will be downloaded in two JSON files that contains respectively requests and headers.
 
 Web traces can then be used for the most disparate purposes. I.e. mutative testing of websites based on valid web traces.
 
@@ -25,4 +25,4 @@ Open chrome and go on `chrome://extensions`, tick "developer mode", click "load 
 
 ## Possible improvements
 
-The add-on currenty supports dumping of request headers and request parameters. It might be interesting to add the recording of the responses too. 
+The add-on currenty supports the dumping of HTTP request headers and parameters. It might be interesting to add the recording of the responses too.
