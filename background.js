@@ -2,6 +2,7 @@ recording=false
 site=''
 requests=[]
 headers=[]
+responses=[]
 
 function download(){
   var result = JSON.stringify(requests);
@@ -10,14 +11,24 @@ function download(){
       url: url,
       filename: 'web-requests.json'
   });
+
   result = JSON.stringify(headers);
   url = 'data:application/json;base64,' + btoa(result);
   chrome.downloads.download({
       url: url,
       filename: 'web-headers.json'
   });
+
+  result = JSON.stringify(responses);
+  url = 'data:application/json;base64,' + btoa(result);
+  chrome.downloads.download({
+      url: url,
+      filename: 'web-responses.json'
+  });
+
   requests=[]
   headers=[]
+  responses=[]
 }
 
 function messageHandler(msg, sender, sendResponse ){
@@ -74,6 +85,18 @@ function recordHeaders(requestDetails) {
   }
 }
 
+function recordResponses(responseDetails){
+  if(!recording)
+    return
+  url=responseDetails.url
+  if(checkName(url)){
+    chrome.tabs.sendMessage(responseDetails.tabId, {msg: 'DOMContent'}, function(DOMContent){
+      responseDetails.httpResponse=DOMContent
+      responses.push(responseDetails)
+    })
+  }
+}
+
 chrome.webRequest.onBeforeRequest.addListener(
   recordRequest,
   {urls: ["<all_urls>"]},
@@ -84,4 +107,9 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   {urls: ["<all_urls>"]},
   ["requestHeaders"]
 )
+chrome.webRequest.onCompleted.addListener(
+  recordResponses,
+  {urls: ["<all_urls>"]}
+)
+
 chrome.runtime.onMessage.addListener(messageHandler)
