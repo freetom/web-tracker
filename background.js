@@ -6,7 +6,7 @@ responses=[]
 
 function download(name, data){
   var result = JSON.stringify(data);
-  var url = 'data:application/json;base64,' + btoa(result);
+  var url = 'data:application/json;base64,' + btoa(unescape(encodeURIComponent(result)));
   chrome.downloads.download({
       url: url,
       filename: name
