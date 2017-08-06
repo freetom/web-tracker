@@ -4,27 +4,19 @@ requests=[]
 headers=[]
 responses=[]
 
-function download(){
-  var result = JSON.stringify(requests);
+function download(name, data){
+  var result = JSON.stringify(data);
   var url = 'data:application/json;base64,' + btoa(result);
   chrome.downloads.download({
       url: url,
-      filename: 'web-requests.json'
+      filename: name
   });
+}
 
-  result = JSON.stringify(headers);
-  url = 'data:application/json;base64,' + btoa(result);
-  chrome.downloads.download({
-      url: url,
-      filename: 'web-headers.json'
-  });
-
-  result = JSON.stringify(responses);
-  url = 'data:application/json;base64,' + btoa(result);
-  chrome.downloads.download({
-      url: url,
-      filename: 'web-responses.json'
-  });
+function downloadAll(){
+  download('web-requests.json', requests)
+  download('web-headers.json', headers)
+  download('web-responses.json', responses)
 
   requests=[]
   headers=[]
@@ -50,7 +42,7 @@ function messageHandler(msg, sender, sendResponse ){
       sendResponse({msg:"not recording"})
   }
   else if(msg.msg=='download'){
-    download()
+    downloadAll()
   }
 }
 
